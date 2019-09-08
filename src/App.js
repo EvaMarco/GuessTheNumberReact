@@ -8,6 +8,9 @@ class App extends React.Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      message : 'Escribe un número y dale a prueba',
+    }
   }
 
   getRandomNumber(max) {
@@ -20,25 +23,30 @@ class App extends React.Component {
   handleChange(event){
     const valueNumber = event.target.value;
     console.log(valueNumber);
-    localStorage.setItem('ValueNumber', valueNumber)
+    localStorage.setItem('ValueNumber', valueNumber);
   }
 
   handleClick(){
-    console.log('Estoy funcionando');
     const ValueNumber = localStorage.getItem('ValueNumber');
     const RandomNumber = localStorage.getItem('RandomNumber');
-    if(ValueNumber > RandomNumber){
-      console.log('soy mayor')
+    this.setState((ValueNumber,RandomNumber, props) => {
+      let newmessage;
+      if(ValueNumber > RandomNumber){
+        console.log('soy mayor');
+        newmessage ='El número que has introducido es muy grande, introduce un número menor.';
+        }
+      else if (ValueNumber < RandomNumber){
+        console.log('soy menor');
+        newmessage = 'El número que has introducido es muy pequeño, introduce un número mayor.';
+      }
+      else{
+        console.log('Has ganado');
+        newmessage = 'Has acertado campeona';
+      }
+      return {message : newmessage};
     }
-    else if (ValueNumber < RandomNumber){
-      console.log('soy menor')
-      this.message = 'El número que has introducido es muy pequeño, introduce un número mayor.'
-    }
-    else{
-      console.log('Has acertado campeona')
-    }
-  }
 
+    )}
 
   render() {
     this.getRandomNumber(100);
@@ -65,8 +73,7 @@ class App extends React.Component {
             Prueba
           </button>
         </div>
-        <p className="resultText">Introduce un número y dale a Prueba</p>
-  
+        <p className="resultText">{this.state.message}</p>
       </div>
     );
   }
