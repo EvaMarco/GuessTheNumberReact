@@ -5,7 +5,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.checkNumbers = this.checkNumbers.bind(this);
-    this.getUserName = this.getUserName.bind(this);
+    this.getUserNumber = this.getUserNumber.bind(this);
     this.state = {
       clue : 'Escribe un número y dale a prueba',
       RandomNumber : this.getRandomNumber(100),
@@ -19,7 +19,7 @@ class App extends React.Component {
     return number
   }
 
-  getUserName(event){
+  getUserNumber(event){
     const valueNumber = parseInt(event.target.value);
     this.setState(
       {
@@ -54,7 +54,7 @@ class App extends React.Component {
 
   render() {
     const checkNumbers = this.checkNumbers;
-    const getUserName = this.getUserName;
+    const getUserNumber = this.getUserNumber;
     return (
       <div className="App">
         <h1 className = "main__title">
@@ -70,7 +70,7 @@ class App extends React.Component {
             name="input"
             id="input"
             className="input js__input"
-            onChange = {getUserName}
+            onChange = {getUserNumber}
           />
           <button className="btn js__btn" onClick={checkNumbers}>
             Prueba
