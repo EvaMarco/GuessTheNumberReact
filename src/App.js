@@ -6,13 +6,11 @@ class App extends React.Component {
     super(props);
     this.checkNumbers = this.checkNumbers.bind(this);
     this.getUserName = this.getUserName.bind(this);
-    this.state = {
-      clue : 'Escribe un número y dale a prueba',
-      RandomNumber : this.getRandomNumber(100),
-      ValueNumber : 0,
-      counter : 0
-    }
-    console.log('r', this.state.RandomNumber);
+    this.clue = 'Escribe un número y dale a prueba';
+    this.RandomNumber = this.getRandomNumber(100);
+    this.ValueNumber = 0;
+    this.Counter = 0;
+    console.log('r', this.RandomNumber);
   }
   getRandomNumber(max) {
     const number = Math.ceil(Math.random() * max);
@@ -21,35 +19,29 @@ class App extends React.Component {
 
   getUserName(event){
     const valueNumber = parseInt(event.target.value);
-    this.setState(
-      {
-        ValueNumber: valueNumber
-      }
-    );
+    this.ValueNumber = valueNumber;
   }
 
   checkNumbers(){
-    const ValueNumber = this.state.ValueNumber;
-    const RandomNumber =this.state.RandomNumber;
-    let counter = this.state.counter;
+    const ValueNumber = this.ValueNumber;
+    const RandomNumber =this.RandomNumber;
+    let Counter = this.Counter;
     let result;
 
     if(ValueNumber < RandomNumber){
       result = 'El número que has introducido es muy pequeño, introduce un número mayor.';
-      counter ++;
+      Counter ++;
     }
     else if(ValueNumber > RandomNumber){ 
       result =  'El número que has introducido es muy grande, introduce un número menor.';
-      counter ++;
+      Counter ++;
     }
     else{
       result = 'Has acertado campeona';
     }
-
-    this.setState({
-      clue: result,
-      counter: counter
-    })
+    this.clue = result;
+    this.Counter = Counter;
+    this.forceUpdate();
   }
 
   render() {
@@ -60,7 +52,7 @@ class App extends React.Component {
         <h1 className = "main__title">
           Adivina el número
         </h1>
-        <p className = "tries_text" >{this.state.counter}</p>    
+        <p className = "tries_text" >{this.Counter}</p>    
         <div className="InputDiv">
           <label htmlFor = "input" className = "main__subtitle">
             Introduce aquí tu número.
@@ -76,7 +68,7 @@ class App extends React.Component {
             Prueba
           </button>
         </div>
-        <p className="resultText">{this.state.clue}</p>
+        <p className="resultText">{this.clue}</p>
       </div>
     );
   }
