@@ -1,23 +1,28 @@
 import React from 'react';
 import './scss/main.scss';
+import Tries from './components/Tries';
+import Input from './components/Input';
+import Result from './components/Result';
 
 class App extends React.Component {
+
   constructor(props) {
     super(props);
     this.checkNumbers = this.checkNumbers.bind(this);
-    this.getUserName = this.getUserName.bind(this);
+    this.getUserNumber = this.getUserNumber.bind(this);
     this.clue = 'Escribe un número y dale a prueba';
     this.RandomNumber = this.getRandomNumber(100);
     this.ValueNumber = 0;
     this.Counter = 0;
     console.log('r', this.RandomNumber);
   }
+
   getRandomNumber(max) {
     const number = Math.ceil(Math.random() * max);
     return number
   }
 
-  getUserName(event){
+  getUserNumber(event){
     const valueNumber = parseInt(event.target.value);
     this.ValueNumber = valueNumber;
   }
@@ -43,32 +48,19 @@ class App extends React.Component {
     this.Counter = Counter;
     this.forceUpdate();
   }
-
+  
   render() {
-    const checkNumbers = this.checkNumbers;
-    const getUserName = this.getUserName;
     return (
       <div className="App">
         <h1 className = "main__title">
           Adivina el número
         </h1>
-        <p className = "tries_text" >{this.Counter}</p>    
-        <div className="InputDiv">
-          <label htmlFor = "input" className = "main__subtitle">
-            Introduce aquí tu número.
-          </label>
-          <input
-            type="number"
-            name="input"
-            id="input"
-            className="input js__input"
-            onChange = {getUserName}
-          />
-          <button className="btn js__btn" onClick={checkNumbers}>
-            Prueba
-          </button>
-        </div>
-        <p className="resultText">{this.clue}</p>
+        <Tries counter = {this.Counter}/>
+        <Input 
+          fieldAction = {this.getUserNumber}
+          buttonAction = {this.checkNumbers}
+        />
+        <Result clue = {this.clue}/>
       </div>
     );
   }
