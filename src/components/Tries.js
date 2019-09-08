@@ -3,8 +3,9 @@ import '../scss/main.scss';
 class Tries extends React.Component {
 
   render() {
+    const counterValue = this.props.counterValue
     return (
-      <p className = "tries_text" >0</p>
+      <p className = "tries_text" >{counterValue}</p>
     );
   }
 }

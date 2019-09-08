@@ -1,5 +1,8 @@
 import React from 'react';
 import './scss/main.scss';
+import Input from './components/Input';
+import Tries from './components/Tries';
+import Result from './components/Result';
 
 class App extends React.Component {
   constructor(props) {
@@ -60,23 +63,14 @@ class App extends React.Component {
         <h1 className = "main__title">
           Adivina el número
         </h1>
-        <p className = "tries_text" >{this.state.counter}</p>    
-        <div className="InputDiv">
-          <label htmlFor = "input" className = "main__subtitle">
-            Introduce aquí tu número.
-          </label>
-          <input
-            type="number"
-            name="input"
-            id="input"
-            className="input js__input"
-            onChange = {getUserName}
-          />
-          <button className="btn js__btn" onClick={checkNumbers}>
-            Prueba
-          </button>
-        </div>
-        <p className="resultText">{this.state.clue}</p>
+        <Tries 
+        counterValue = {this.state.counter}
+        />
+        <Input 
+          fieldAction = {getUserName}
+          buttonAction = {checkNumbers}
+        />    
+        <Result clueValue = {this.state.clue} />
       </div>
     );
   }
